@@ -30,7 +30,8 @@ Issue a search query to GiantBomb database.
 @return json
 */
 GiantBomb.prototype.search = function(resource,query) {
-  var searchString= this.url+resource+'?api_key='+this.apiKey+'&query='+ encodeURIComponent(query)+'&ressources='+ this.type +'&format=json&limit='+this.searchLimit;
+	var filter="&field_list=id";
+  var searchString= this.url+resource+'?api_key='+this.apiKey+'&query='+ encodeURIComponent(query)+'&resources='+ this.type +'&format=json&limit='+this.searchLimit+filter;
   var result = http().get(searchString);
   var json = JSON.parse(result.body);
   return json.results;  
@@ -45,8 +46,8 @@ GiantBomb.prototype.getGamesArray = function(games) {
 	for (i=0;i<games.length;i++){
 		
 		var object = {}; 
-		object["title"] 		= games[i].name; 
-		/*object["id"] 			= games[i].id; 
+		/*object["title"] 		= games[i].name; 
+		object["id"] 			= games[i].id; 
 		object["desc"]			= games[i].deck;
 		object["release_date"]	= games[i].original_release_date ;*/
 		var object = this.getGame(games[i].id);
