@@ -81,7 +81,7 @@ GiantBomb.prototype.getGame = function(id) {
 	strDev = tab.toString();
 	tab = [];
 	for (x in obj.platforms ){  
-		if (this.platformsPriority.indexOf(obj.plaforms[x].name)>-1)
+		if (this.platformsPriority.indexOf(obj.platforms[x].name)>-1)
 			tab.push(obj.platforms[x].name);
 	}
 	strPlat = tab.toString();
