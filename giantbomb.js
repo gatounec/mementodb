@@ -42,7 +42,7 @@ GiantBomb.prototype.search = function(resource,query) {
 GiantBomb.prototype.getGamesArray = function(games) {
 	var resultArray=[];
 	for (i=0;i<games.length;i++){
-		log(games[i].name+ ' ' +games[i].id+ '///' + games[i].deck);
+		
 		var object = {}; 
 		object["title"] 		= games[i].name; 
 		object["id"] 			= games[i].id; 
@@ -52,6 +52,8 @@ GiantBomb.prototype.getGamesArray = function(games) {
 		
 		resultArray.push(object);
 	}
+	
+	log(JSON.stringify(resultArray);
 	return (resultArray);
 }///getGamesArray
 
