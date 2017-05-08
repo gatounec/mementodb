@@ -23,6 +23,9 @@ function GiantBomb (apiKey ,searchLimit, type) {
     this.type = type;
 	this.searchLimit = searchLimit;
 	this.url = "https://www.giantbomb.com/api/";
+	this.platformsPriority = ['PC','PS4','TurboGrafx-16','PC-FX'];
+	
+	
 }
 /**
 Issue a search query to GiantBomb database.
@@ -44,18 +47,10 @@ GiantBomb.prototype.search = function(resource,query) {
 GiantBomb.prototype.getGamesArray = function(games) {
 	var resultArray=[];
 	for (i=0;i<games.length;i++){
-		
 		var object = {}; 
-		/*object["title"] 		= games[i].name; 
-		object["id"] 			= games[i].id; 
-		object["desc"]			= games[i].deck;
-		object["release_date"]	= games[i].original_release_date ;*/
 		var object = this.getGame(games[i].id);
-		
 		resultArray.push(object);
 	}
-	
-
 	return (resultArray);
 }///getGamesArray
 
@@ -85,17 +80,20 @@ GiantBomb.prototype.getGame = function(id) {
 	for (x in obj.developers ){  tab.push(obj.developers[x].name);}
 	strDev = tab.toString();
 	tab = [];
-	for (x in obj.platforms ){  tab.push(obj.platforms[x].name);}
+	for (x in obj.platforms ){  
+		if (this.platformsPriority.includes(obj.plaforms[x].name))
+			tab.push(obj.platforms[x].name);
+	}
 	strPlat = tab.toString();
 
 	object["title"]			= obj.name ;
 	object["id"]			= id ;
-	object["desc"]			= strPlat + " " +obj.deck ;
+	object["desc"]			= strPlat + "\n" +obj.deck ;
 	object["date"]			= obj.original_release_date ;
 	object["dev"]			= strDev ;
 	object["pub"]			= strPub ;
 	object["genres"]		= strGenre ;
-	object["image"]			= obj.image ;
+	object["image"]			= obj.image.thumb_url ;
 	
 	
 	return object;
