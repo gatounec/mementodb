@@ -71,7 +71,7 @@ GiantBomb.prototype.getGame = function(id) {
 	var searchString= this.url+resource+'/?api_key='+this.apiKey;
 	log("SEARCH "+searchString);
     var result = http().get(searchString);
-	var game = JSON.parse(result.body);
+	/*var game = JSON.parse(result.body);
     
 	var obj = game.results;
 	var tab = []; var strGenre="";  var strPub = ""; var strDev = "";
@@ -94,7 +94,7 @@ GiantBomb.prototype.getGame = function(id) {
 	
 	
 	return object;
-	
+	*/
 	
 	
 }///getGame
