@@ -70,9 +70,9 @@ GiantBomb.prototype.getGame = function(id) {
 	
 	var searchString= this.url+resource+'?api_key='+this.apiKey+'&format=json';
 	log(searchString);
-    var resultJson = http().get(searchString);
-    var game = JSON.parse(resultJson.body);
-	
+    var result = http().get(searchString);
+	var game = JSON.parse(result.body);
+    
 	var obj = game.results;
 	var tab = []; var strGenre="";  var strPub = ""; var strDev = "";
 	for (x in obj.genres ){  tab.push(obj.genres[x].name);}
