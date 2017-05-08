@@ -53,7 +53,7 @@ GiantBomb.prototype.getGamesArray = function(games) {
 		resultArray.push(object);
 	}
 	
-	log(JSON.stringify(resultArray);
+	log(JSON.stringify(resultArray));
 	return (resultArray);
 }///getGamesArray
 
