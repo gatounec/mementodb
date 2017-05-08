@@ -23,7 +23,7 @@ function GiantBomb (apiKey ,searchLimit, type) {
     this.type = type;
 	this.searchLimit = searchLimit;
 	this.url = "https://www.giantbomb.com/api/";
-	this.platformsPriority = ["PC","PS4","TurboGrafx-16","PC-FX"];
+	this.platformsPriority = ["PC","PS4","TurboGrafx-16","PC-FX","TGCD","PCFX"];
 	
 	
 }
@@ -81,8 +81,8 @@ GiantBomb.prototype.getGame = function(id) {
 	strDev = tab.toString();
 	tab = [];
 	for (x in obj.platforms ){  
-		if (this.platformsPriority.indexOf(obj.platforms[x].name)>-1)
-			tab.push(obj.platforms[x].name);
+		if (this.platformsPriority.indexOf(obj.platforms[x].abbreviation)>-1)
+			tab.push(obj.platforms[x].abbreviation);
 	}
 	strPlat = tab.toString();
 
