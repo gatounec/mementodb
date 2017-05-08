@@ -69,6 +69,7 @@ GiantBomb.prototype.getGame = function(id) {
 	
 	
 	var searchString= this.url+resource+'?api_key='+this.apiKey+'&format=json';
+	log(searchString);
     var resultJson = http().get(searchString);
     var game = JSON.parse(resultJson.body);
 	
