@@ -64,11 +64,11 @@ GiantBomb.prototype.getGamesArray = function(games) {
 GiantBomb.prototype.getGame = function(id) {
 	
 	var gameID = '3030-'+id;
-    var resource = '/game/' + gameID;
+    var resource = 'game/' + gameID;
 	var object = {}; 
 	
 	
-	var searchString= this.url+resource+'?api_key='+this.apiKey+'&format=json';
+	var searchString= this.url+resource+'/?api_key='+this.apiKey+'&format=json';
 	log(searchString);
     var result = http().get(searchString);
 	var game = JSON.parse(result.body);
