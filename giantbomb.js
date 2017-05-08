@@ -29,8 +29,8 @@ Issue a search query to GiantBomb database.
 @return json
 */
 GiantBomb.prototype.search = function(resource,query) {
-  var cherche= this.url+resource+'?api_key='+this.apiKey+'&query='+ encodeURIComponent(query)+'&ressources='+ this.type +'&format=json';
-  var result = http().get(cherche);
+  var searchString= this.url+resource+'?api_key='+this.apiKey+'&query='+ encodeURIComponent(query)+'&ressources='+ this.type +'&format=json';
+  var result = http().get(searchString);
   var json = JSON.parse(result.body);
   return json.results;  
 }///search
@@ -44,8 +44,12 @@ GiantBomb.prototype.getGamesArray = function(games) {
 	for (i=0;i<games.length;i++){
 		log(games[i].name+ ' ' +games[i].id+ '///' + games[i].deck);
 		var object = {}; 
-		object["title"] = games[i].name; object["id"] = games[i].id; 
-		object["desc"]= games[i].original_release_date +' '+ games[i].deck;
+		object["title"] 		= games[i].name; 
+		object["id"] 			= games[i].id; 
+		object["desc"]			=  games[i].deck;
+		object["release_date"]	= games[i].original_release_date ;
+		var object = this.getGame(games[i].id);
+		
 		resultArray.push(object);
 	}
 	return (resultArray);
@@ -59,9 +63,36 @@ GiantBomb.prototype.getGame = function(id) {
 	
 	var gameID = '3030-'+id;
     var resource = '/game/' + gameID;
+	var object = {}; 
 	
-	var cherche= this.url+resource+'?api_key='+this.apiKey+'&format=json';
-    var resultJson = http().get(cherche);
-    var jeu = JSON.parse(resultJson.body);
+	
+	var searchString= this.url+resource+'?api_key='+this.apiKey+'&format=json';
+    var resultJson = http().get(searchString);
+    var game = JSON.parse(resultJson.body);
+	
+	var obj = game.results;
+	var tab = []; var strGenre="";  var strPub = ""; var strDev = "";
+	for (x in obj.genres ){  tab.push(obj.genres[x].name);}
+	strGenre = tab.toString();
+	tab = [];
+	for (x in obj.publishers ){  tab.push(obj.publishers[x].name);}
+	strPub = tab.toString();
+	tab = [];
+	for (x in obj.developers ){  tab.push(obj.developers[x].name);}
+	strDev = tab.toString();
+
+	object["title"]			= obj.name ;
+	object["id"]			= id ;
+	object["desc"]			= obj.deck ;
+	object["release_date"]	= obj.original_release_date ;
+	object["dev"]			= strDev ;
+	object["pub"]			= strPub ;
+	object["genres"]		= strGenre ;
+	
+	
+	return object;
+	
+	
 	
 }///getGame
+
