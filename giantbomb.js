@@ -69,13 +69,13 @@ GiantBomb.prototype.getGame = function(id) {
     var resource = 'game/' + gameID;
 	var object = {}; 
 	
-	var filter ="&field_list=name,deck,original_release_date,publishers,developers,genres";
+	var filter ="&field_list=name,deck,original_release_date,publishers,developers,genres,platforms,image";
 	var searchString= this.url+resource+'/?api_key='+this.apiKey+'&format=json'+filter;
 	var result = http().get(searchString);
 	var game = JSON.parse(result.body);
     
 	var obj = game.results;
-	var tab = []; var strGenre="";  var strPub = ""; var strDev = "";
+	var tab = []; var strGenre="";  var strPub = ""; var strDev = ""; var strPlat = "";
 	for (x in obj.genres ){  tab.push(obj.genres[x].name);}
 	strGenre = tab.toString();
 	tab = [];
@@ -84,14 +84,18 @@ GiantBomb.prototype.getGame = function(id) {
 	tab = [];
 	for (x in obj.developers ){  tab.push(obj.developers[x].name);}
 	strDev = tab.toString();
+	tab = [];
+	for (x in obj.platforms ){  tab.push(obj.platforms[x].name);}
+	strPlat = tab.toString();
 
 	object["title"]			= obj.name ;
 	object["id"]			= id ;
-	object["desc"]			= obj.deck ;
-	object["release_date"]	= obj.original_release_date ;
+	object["desc"]			= strPlat + " " +obj.deck ;
+	object["date"]			= obj.original_release_date ;
 	object["dev"]			= strDev ;
 	object["pub"]			= strPub ;
 	object["genres"]		= strGenre ;
+	object["image"]			= obj.image ;
 	
 	
 	return object;
