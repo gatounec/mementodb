@@ -46,7 +46,7 @@ GiantBomb.prototype.getGamesArray = function(games) {
 		var object = {}; 
 		object["title"] 		= games[i].name; 
 		object["id"] 			= games[i].id; 
-		object["desc"]			=  games[i].deck;
+		object["desc"]			= games[i].deck;
 		object["release_date"]	= games[i].original_release_date ;
 		var object = this.getGame(games[i].id);
 		
