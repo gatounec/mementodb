@@ -5,7 +5,7 @@ The data source for obtaining information from giantbomb
 @param {string} type request - search, game
 https://www.giantbomb.com/api/documentation
 @example 
-var giant = new GiantBomb("Consumer key" ,"Consumer secret" , "release" );
+var giant = new GiantBomb("Consumer key" ,10, "game" );
 var r = giant.search('search/',query);
 result(giant.getGamesArray(r));
 //result( r , function(id) { return giant.extra(id);});
@@ -18,9 +18,10 @@ result(giant.getGamesArray(r));
 /**
 constructor
 **/
-function GiantBomb (apiKey , apiSecret, type) {
+function GiantBomb (apiKey ,searchLimit, type) {
     this.apiKey = apiKey;
     this.type = type;
+	this.searchLimit = searchLimit;
 	this.url = "https://www.giantbomb.com/api/";
 }
 /**
@@ -44,16 +45,16 @@ GiantBomb.prototype.getGamesArray = function(games) {
 	for (i=0;i<games.length;i++){
 		
 		var object = {}; 
-		object["title"] 		= games[i].name; 
+		/*object["title"] 		= games[i].name; 
 		object["id"] 			= games[i].id; 
 		object["desc"]			= games[i].deck;
-		object["release_date"]	= games[i].original_release_date ;
+		object["release_date"]	= games[i].original_release_date ;*/
 		var object = this.getGame(games[i].id);
 		
 		resultArray.push(object);
 	}
 	
-	log(JSON.stringify(resultArray));
+
 	return (resultArray);
 }///getGamesArray
 
@@ -67,10 +68,9 @@ GiantBomb.prototype.getGame = function(id) {
     var resource = 'game/' + gameID;
 	var object = {}; 
 	
-	
-	var searchString= this.url+resource+'/?api_key='+this.apiKey+'&format=json';
-	log("SEARCH "+searchString);
-    var result = http().get(searchString);
+	var filter ="&field_list=title,deck,original_release_date,publishers,developers,genres";
+	var searchString= this.url+resource+'/?api_key='+this.apiKey+'&format=json'+filter;
+	var result = http().get(searchString);
 	var game = JSON.parse(result.body);
     
 	var obj = game.results;
