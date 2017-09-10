@@ -23,7 +23,7 @@ function GiantBomb (apiKey ,searchLimit, type) {
     this.type = type;
 	this.searchLimit = searchLimit;
 	this.url = "https://www.giantbomb.com/api/";
-	this.platformsPriority = ["PC","PS4","TurboGrafx-16","PC-FX","TGCD","PCFX"];
+	this.platformsPriority = ["PC","PS4","TurboGrafx-16","PC-FX","TGCD","PCFX","TurboGrafx-CD","Nintendo DS","WonderSwan","DS"];
 	
 	
 }
