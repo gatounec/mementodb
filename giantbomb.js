@@ -11,7 +11,7 @@ result(giant.getGamesArray(r));
 //result( r , function(id) { return giant.extra(id);});
 
 
-
+//tet
 */
 
 
